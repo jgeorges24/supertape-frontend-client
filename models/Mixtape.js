@@ -25,6 +25,7 @@ class Mixtape {
              let p = document.createElement('p')
              let p2 = document.createElement('p')
              let likeButton = document.createElement('button')
+             let ul = document.createElement('ul')
              
              
              let mixtapeOpinions = mixtape.opinions.map(comment => {
@@ -48,8 +49,14 @@ class Mixtape {
              p.innerText = mixtape.artist
              p2.innerText = mixtape.description
              likes.innerText = "♥"
-             likeButton.addEventListener('click', likeMixtape.bind(mixtape))
+             likeButton.addEventListener('click', Mixtape.likeMixtape.bind(mixtape))
 
+             div.appendChild(h3)
+             div.appendChild(p)
+             div.appendChild(likeButton)
+             mixtapeComments.forEach(li => ul.appendChild(li))
+             div.appendChild(ul)
+             mixtapesContainer().appendChild(div)
 
 
          })
