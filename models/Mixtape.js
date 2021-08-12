@@ -28,9 +28,9 @@ class Mixtape {
              let ul = document.createElement('ul')
              
              
-             let mixtapeOpinions = mixtape.opinions.map(comment => {
+             let mixtapeOpinions = mixtape.opinions.map(opinion => {
                  let li = document.createElement('li')
-                 let div - document.createElement('div')
+                 let div = document.createElement('div')
                  let opinionLikes = document.createElement('p')
                  let likesButton = document.createElement('button')
                  let opinionContent = document.createElement('p')
@@ -54,7 +54,7 @@ class Mixtape {
              div.appendChild(h3)
              div.appendChild(p)
              div.appendChild(likeButton)
-             mixtapeComments.forEach(li => ul.appendChild(li))
+             mixtapeOpinions.forEach(li => ul.appendChild(li))
              div.appendChild(ul)
              mixtapesContainer().appendChild(div)
 
