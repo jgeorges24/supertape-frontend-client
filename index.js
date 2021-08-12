@@ -1,9 +1,10 @@
 
-let mixtapesContainer = document.getElementById("mixtapes-container")
+let mixtapesContainer = () => document.getElementById("mixtapes-container")
 
 
 
 const startProgram = () => {
+    Mixtape.fetchMixtapes()
 
 }
 
