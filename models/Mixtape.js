@@ -1,6 +1,6 @@
 class Mixtape {
 
-    constructor(id, title, description,artist, tracks, likes, dislikes, genre, opinions){
+    constructor(id, title, description, artist, tracks, likes, dislikes, genre, opinions){
         this.id = id
         this.title = title
         this.description = description
@@ -12,10 +12,12 @@ class Mixtape {
         this.opinions = [...opinions]
     }
 
-    static fetchMixtapes() {
+    static fetchMixtapes(){
         fetch("http://localhost:3000/mixtapes")
         .then(resp => resp.json())
-        .then(json => {Mixtape.renderMixtapes(json)})
+        .then(json => {
+            Mixtape.renderMixtapes(json)
+        })
 
     }
 
@@ -66,6 +68,28 @@ class Mixtape {
 
 
     static likeMixtape(e){
+
+        this.likes += 1
+        let params = {
+            post: {
+                likes: this.likes
+            }
+        }
+        let configObj = {
+            method: "PATCH",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(params)
+
+        }
+
+
+        fetch('http://localhost:3000/posts/${this.id}', configObj)
+        .then(resp => resp.json())
+        .then(mixtapsInfo => Mixtape.renderMixtapes(mixtapsInfo))
+        
 
 
     }
