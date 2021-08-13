@@ -91,9 +91,9 @@ class Mixtape {
         }
 
 
-        fetch('http://localhost:3000/mixtapes/${this.id}', configObj)
+        fetch(`http://localhost:3000/mixtapes/${this.id}`, configObj)
         .then(resp => resp.json())
-        .then(mixtapsInfo => Mixtape.renderMixtapes(mixtapsInfo))
+        .then(mixtapesInfo => Mixtape.renderMixtapes(mixtapesInfo))
 
 
 
