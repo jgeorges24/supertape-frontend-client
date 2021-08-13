@@ -22,6 +22,7 @@ class Mixtape {
     }
 
     static renderMixtapes(mixtapesInfo){
+        clearContainer(mixtapesContainer())
          mixtapesInfo.forEach(mixtape => {
              let div = document.createElement("div")
              let h3 = document.createElement("h3")
@@ -29,6 +30,8 @@ class Mixtape {
              let p2 = document.createElement('p')
              let likeButton = document.createElement('button')
              let ul = document.createElement('ul')
+             let tapeLikes = document.createElement('p')
+
              
              
              let mixtapeOpinions = mixtape.opinions.map(opinion => {
@@ -51,11 +54,13 @@ class Mixtape {
              h3.innerText = mixtape.title
              p.innerText = mixtape.artist
              p2.innerText = mixtape.description
+             tapeLikes.innerText = mixtape.likes
              likeButton.innerText = "♥"
              likeButton.addEventListener('click', Mixtape.likeMixtape.bind(mixtape))
 
              div.appendChild(h3)
              div.appendChild(p)
+             div.appendChild(tapeLikes)
              div.appendChild(p2)
              div.appendChild(likeButton)
              mixtapeOpinions.forEach(li => ul.appendChild(li))
@@ -71,7 +76,7 @@ class Mixtape {
 
         this.likes += 1
         let params = {
-            post: {
+            mixtape: {
                 likes: this.likes
             }
         }
@@ -86,10 +91,10 @@ class Mixtape {
         }
 
 
-        fetch('http://localhost:3000/posts/${this.id}', configObj)
+        fetch('http://localhost:3000/mixtapes/${this.id}', configObj)
         .then(resp => resp.json())
         .then(mixtapsInfo => Mixtape.renderMixtapes(mixtapsInfo))
-        
+
 
 
     }
