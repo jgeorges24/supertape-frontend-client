@@ -20,6 +20,34 @@ class Mixtape {
         })
 
     }
+//creationg a new mixtape handler
+    static createMixtape(e){
+        let title = e.target.children[0]
+        let description = e.target.children[1]
+
+        let params = {
+            post: {
+                title,
+                description
+            }
+        }
+        
+        let configObj = {
+            method: "POST"
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(params)
+
+        }
+
+        fetch("http://localhost:3000/mixtapes", configObj)
+        .then(resp => resp.json())
+        .then(json => Mixtape.renderMixtapes(json))
+
+    }
+    
 
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
@@ -31,9 +59,10 @@ class Mixtape {
              let likeButton = document.createElement('button')
              let ul = document.createElement('ul')
              let tapeLikes = document.createElement('p')
+             //let deleteButton = document.createElement('button')
 
-             
-             
+         
+             //assigning that imaginary element to an actuaL target 
              let mixtapeOpinions = mixtape.opinions.map(opinion => {
                  let li = document.createElement('li')
                  let div = document.createElement('div')
@@ -49,7 +78,7 @@ class Mixtape {
                  li.appendChild(div)
                  return li
              })
-
+            //filling in that imaginary box with that inforamtion 
              div.id = mixtape.id
              h3.innerText = mixtape.title
              p.innerText = mixtape.artist
@@ -58,6 +87,7 @@ class Mixtape {
              likeButton.innerText = "♥"
              likeButton.addEventListener('click', Mixtape.likeMixtape.bind(mixtape))
 
+             //bringing that imagainary box to life on the browser to see
              div.appendChild(h3)
              div.appendChild(p)
              div.appendChild(tapeLikes)
