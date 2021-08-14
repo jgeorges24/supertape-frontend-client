@@ -22,13 +22,14 @@ class Mixtape {
     }
 //creationg a new mixtape handler
     static createMixtape(e){
-        let title = e.target.children[0]
-        let description = e.target.children[1]
+        e.preventDefault();
+        let title = e.target.children[0].value
+        let description = e.target.children[1].value
 
         let params = {
             post: {
-                title,
-                description
+                title: title,
+                description: description
             }
         }
         
