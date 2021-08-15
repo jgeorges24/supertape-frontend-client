@@ -1,5 +1,7 @@
 class Mixtape {
 
+    //static all = []
+
     constructor(id, title, description, artist, likes, opinions){
         this.id = id
         this.title = title
@@ -9,6 +11,7 @@ class Mixtape {
         this.opinions = [...opinions]
     }
 
+    // my index fetch request
     static fetchMixtapes(){
         fetch("http://localhost:3000/mixtapes")
         .then(resp => resp.json())
@@ -17,16 +20,19 @@ class Mixtape {
         })
 
     }
+
 //creationg a new mixtape handler
     static createMixtape(e){
         e.preventDefault();
         let title = e.target.children[0].value
         let description = e.target.children[1].value
+        let artist = e.target.children[2].value
 
         let params = {
             mixtape: {
                 title: title,
-                description: description
+                description: description,
+                artist: artist
             }
         }
         
@@ -45,6 +51,7 @@ class Mixtape {
         .then(json => {
             e.target.children[0].value = ""
             e.target.children[1].value = ""
+            e.target.children[2].value = ""
             Mixtape.renderMixtapes(json)
         })
 
@@ -53,7 +60,10 @@ class Mixtape {
 
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
+        //Mixtape.all = []
          mixtapesInfo.forEach(mixtape => {
+             //new_mixtape = new Mixtape(mixtape.id, mixtape.title, mixtape.description, mixtape.artist, mixtape.likes, mixtape.opinions)
+             //Mixtape.all.push(new_mixtape)
              let div = document.createElement("div")
              let h3 = document.createElement("h3")
              let p = document.createElement('p')
@@ -64,7 +74,7 @@ class Mixtape {
              let deleteButton = document.createElement('button')
 
          
-             //assigning that imaginary element to an actuaL target 
+             //creating the opinioons to each mixtape created
              let mixtapeOpinions = mixtape.opinions.map(opinion => {
                  let li = document.createElement('li')
                  let div = document.createElement('div')
