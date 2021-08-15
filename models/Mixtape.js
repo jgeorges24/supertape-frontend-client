@@ -92,6 +92,8 @@ class Mixtape {
              })
             //filling in that imaginary box with that inforamtion 
              div.id = mixtape.id
+             div.style.padding = "40px"
+             div.className = 'card'
              h3.innerText = mixtape.title
              p.innerText = mixtape.artist
              p2.innerText = mixtape.description
