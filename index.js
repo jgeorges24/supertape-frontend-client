@@ -16,6 +16,5 @@ const startProgram = () => {
 
 }
 
-
-
+//don't rush the process wait for DOM to fully load first before running
 document.addEventListener("DOMContentLoaded", startProgram)

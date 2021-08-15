@@ -125,13 +125,12 @@ class Mixtape {
                 "Content-type": "application/json"
             }
         }
-        fetch('http://localhost:3000/mixtapes/${this.id}', configObj)
+        fetch(`http://localhost:3000/mixtapes/${this.id}`, configObj)
         .then(resp => resp.json())
         .then(json => Mixtape.renderMixtapes(json))    
     }
 
-
-
+//when liking a mixtape
     static likeMixtape(e){
 
         this.likes += 1
@@ -149,13 +148,9 @@ class Mixtape {
             body: JSON.stringify(params)
 
         }
-
-
         fetch(`http://localhost:3000/mixtapes/${this.id}`, configObj)
         .then(resp => resp.json())
         .then(mixtapesInfo => Mixtape.renderMixtapes(mixtapesInfo))
-
-
 
     }
 
