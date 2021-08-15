@@ -1,14 +1,11 @@
 class Mixtape {
 
-    constructor(id, title, description, artist, tracks, likes, dislikes, genre, opinions){
+    constructor(id, title, description, artist, likes, opinions){
         this.id = id
         this.title = title
         this.description = description
         this.artist = artist
-        this.tracks = tracks
         this.likes = likes
-        this.dislikes = dislikes
-        this.genre = genre
         this.opinions = [...opinions]
     }
 
@@ -27,14 +24,14 @@ class Mixtape {
         let description = e.target.children[1].value
 
         let params = {
-            post: {
+            mixtape: {
                 title: title,
                 description: description
             }
         }
         
         let configObj = {
-            method: "POST"
+            method: "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-type": "application/json"
@@ -45,7 +42,11 @@ class Mixtape {
 
         fetch("http://localhost:3000/mixtapes", configObj)
         .then(resp => resp.json())
-        .then(json => Mixtape.renderMixtapes(json))
+        .then(json => {
+            e.target.children[0].value = ""
+            e.target.children[1].value = ""
+            Mixtape.renderMixtapes(json)
+        })
 
     }
     
@@ -60,7 +61,7 @@ class Mixtape {
              let likeButton = document.createElement('button')
              let ul = document.createElement('ul')
              let tapeLikes = document.createElement('p')
-             //let deleteButton = document.createElement('button')
+             let deleteButton = document.createElement('button')
 
          
              //assigning that imaginary element to an actuaL target 
@@ -87,13 +88,16 @@ class Mixtape {
              tapeLikes.innerText = mixtape.likes
              likeButton.innerText = "♥"
              likeButton.addEventListener('click', Mixtape.likeMixtape.bind(mixtape))
+             deleteButton.innerText = "x"
+             deleteButton.addEventListener("click", Mixtape.deleteMixtape.bind(mixtape))
 
-             //bringing that imagainary box to life on the browser to see
+             //appending to child bringing that imagainary box to life on the browser to see
              div.appendChild(h3)
              div.appendChild(p)
              div.appendChild(tapeLikes)
              div.appendChild(p2)
              div.appendChild(likeButton)
+             div.appendChild(deleteButton)
              mixtapeOpinions.forEach(li => ul.appendChild(li))
              div.appendChild(ul)
              mixtapesContainer().appendChild(div)
@@ -101,6 +105,21 @@ class Mixtape {
 
          })
     }
+
+    //delete method callback
+    static deleteMixtape(e){
+        let configObj = {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            }
+        }
+        fetch('http://localhost:3000/mixtapes/${this.id}', configObj)
+        .then(resp => resp.json())
+        .then(json => Mixtape.renderMixtapes(json))    
+    }
+
 
 
     static likeMixtape(e){
