@@ -1,6 +1,6 @@
 class Mixtape {
 
-    //static all = []
+    static all = []
 
     constructor(id, title, description, artist, likes, opinions){
         this.id = id
@@ -9,6 +9,11 @@ class Mixtape {
         this.artist = artist
         this.likes = likes
         this.opinions = [...opinions]
+    }
+
+    save(){
+        Mixtape.all.push(this)
+
     }
 
     // my index fetch request
@@ -83,9 +88,11 @@ class Mixtape {
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
         //Mixtape.all = []
-         mixtapesInfo.forEach(mixtape => {
+         mixtapesInfo.forEach(mixtapeInfo => {
              //new_mixtape = new Mixtape(mixtape.id, mixtape.title, mixtape.description, mixtape.artist, mixtape.likes, mixtape.opinions)
              //Mixtape.all.push(new_mixtape)
+             let mixtape = new Mixtape(mixtapeInfo.id, mixtapeInfo.title, mixtapeInfo.description, mixtapeInfo.likes, mixtapeInfo.opinions,)
+             mixtape.save
              let div = document.createElement("div")
              let h3 = document.createElement("h3")
              let p = document.createElement('p')
