@@ -84,15 +84,14 @@ class Mixtape {
 
     }
 
-
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
         //Mixtape.all = []
-         mixtapesInfo.forEach(mixtapeInfo => {
+         mixtapesInfo.forEach(mixtape => {
              //new_mixtape = new Mixtape(mixtape.id, mixtape.title, mixtape.description, mixtape.artist, mixtape.likes, mixtape.opinions)
              //Mixtape.all.push(new_mixtape)
-             let mixtape = new Mixtape(mixtapeInfo.id, mixtapeInfo.title, mixtapeInfo.description, mixtapeInfo.likes, mixtapeInfo.opinions,)
-             mixtape.save
+            //  let mixtape = new Mixtape(mixtapeInfo.id, mixtapeInfo.title, mixtapeInfo.description, mixtapeInfo.artist, mixtapeInfo.likes, mixtapeInfo.opinions,)
+            //  mixtape.save
              let div = document.createElement("div")
              let h3 = document.createElement("h3")
              let p = document.createElement('p')
@@ -104,31 +103,12 @@ class Mixtape {
              let form = document.createElement("form")
              let input = document.createElement("input")
              let submitOpinion = document.createElement("button")
-             
-         
-             //creating the opinioons to each mixtape created
-            //  let mixtapeOpinions = mixtape.opinions.map(opinion => {
-            //      let li = document.createElement('li')
-            //      let div = document.createElement('div')
-            //      let opinionContent = document.createElement('p')
-            //      let opinionLikes = document.createElement('p')
-            //      let likeButton = document.createElement('button')
-            //      opinionContent.innerText = opinion.content
-            //      opinionLikes.innerText = opinion.likes
-            //      likeButton.innerText = "♥"
-            //      div.appendChild(opinionContent)
-            //      div.appendChild(opinionLikes)
-            //      div.appendChild(likeButton)
-            //      li.appendChild(div)
-            //      return li
-            //  })
 
-             let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)
-
-             
+             let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)           
             //filling in that imaginary box with that inforamtion 
              div.id = mixtape.id
              div.style.padding = "40px"
+             div.style.backgroundColor = "#FADCF3"
              div.className = 'card'
              h3.innerText = mixtape.title
              p.innerText = mixtape.artist
