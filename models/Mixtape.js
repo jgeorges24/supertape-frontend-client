@@ -58,7 +58,6 @@ class Mixtape {
     }
     static createOpinion(e){
         e.preventDefault();
-
         let params = {
             opinion: {
                 content: e.target.children[0].value,
