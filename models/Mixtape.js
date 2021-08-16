@@ -90,6 +90,10 @@ class Mixtape {
                  li.appendChild(div)
                  return li
              })
+
+             let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)
+
+
             //filling in that imaginary box with that inforamtion 
              div.id = mixtape.id
              div.style.padding = "40px"
