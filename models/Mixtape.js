@@ -56,8 +56,30 @@ class Mixtape {
         })
 
     }
-    
-    
+    static createOpinion(e){
+        e.preventDefault();
+
+        let params = {
+            opinion: {
+                content: e.target.children[0].value,
+                mixtape_id: this.id
+            }
+        }
+        let configObj = {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(params)
+
+        }
+        fetch(`http://localhost:3000/mixtapes/${this.id}/opinions`, configObj)
+        .then(resp => resp.json())
+        .then(mixtapesInfo => Mixtape.renderMixtapes(mixtapesInfo))
+
+    }
+
 
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
@@ -79,23 +101,23 @@ class Mixtape {
              
          
              //creating the opinioons to each mixtape created
-             let mixtapeOpinions = mixtape.opinions.map(opinion => {
-                 let li = document.createElement('li')
-                 let div = document.createElement('div')
-                 let opinionContent = document.createElement('p')
-                 let opinionLikes = document.createElement('p')
-                 let likeButton = document.createElement('button')
-                 opinionContent.innerText = opinion.content
-                 opinionLikes.innerText = opinion.likes
-                 likeButton.innerText = "♥"
-                 div.appendChild(opinionContent)
-                 div.appendChild(opinionLikes)
-                 div.appendChild(likeButton)
-                 li.appendChild(div)
-                 return li
-             })
+            //  let mixtapeOpinions = mixtape.opinions.map(opinion => {
+            //      let li = document.createElement('li')
+            //      let div = document.createElement('div')
+            //      let opinionContent = document.createElement('p')
+            //      let opinionLikes = document.createElement('p')
+            //      let likeButton = document.createElement('button')
+            //      opinionContent.innerText = opinion.content
+            //      opinionLikes.innerText = opinion.likes
+            //      likeButton.innerText = "♥"
+            //      div.appendChild(opinionContent)
+            //      div.appendChild(opinionLikes)
+            //      div.appendChild(likeButton)
+            //      li.appendChild(div)
+            //      return li
+            //  })
 
-             //let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)
+             let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)
 
              
             //filling in that imaginary box with that inforamtion 
@@ -115,7 +137,7 @@ class Mixtape {
              input.placeholder = "type your opinion here..."
              submitOpinion.type = "submit"
              submitOpinion.innerText = "Submit"
-             form.addEventListener("submit", Opinion.createOpinion.bind(mixtape))
+             form.addEventListener("submit", Mixtape.createOpinion.bind(mixtape))
              form.appendChild(input)
              form.appendChild(submitOpinion)
 
