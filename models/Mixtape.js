@@ -57,6 +57,7 @@ class Mixtape {
 
     }
     
+    
 
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
@@ -72,7 +73,10 @@ class Mixtape {
              let ul = document.createElement('ul')
              let tapeLikes = document.createElement('p')
              let deleteButton = document.createElement('button')
-
+             let form = document.createElement("form")
+             let input = document.createElement("input")
+             let submitOpinion = document.createElement("button")
+             
          
              //creating the opinioons to each mixtape created
              let mixtapeOpinions = mixtape.opinions.map(opinion => {
@@ -93,7 +97,7 @@ class Mixtape {
 
              //let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)
 
-
+             
             //filling in that imaginary box with that inforamtion 
              div.id = mixtape.id
              div.style.padding = "40px"
@@ -107,6 +111,14 @@ class Mixtape {
              deleteButton.innerText = "x"
              deleteButton.addEventListener("click", Mixtape.deleteMixtape.bind(mixtape))
 
+             input.type = "text"
+             input.placeholder = "type your opinion here..."
+             submitOpinion.type = "submit"
+             submitOpinion.innerText = "Submit"
+             form.addEventListener("submit", Opinion.createOpinion.bind(mixtape))
+             form.appendChild(input)
+             form.appendChild(submitOpinion)
+
              //appending to child bringing that imagainary box to life on the browser to see
              div.appendChild(h3)
              div.appendChild(p)
@@ -116,6 +128,7 @@ class Mixtape {
              div.appendChild(deleteButton)
              mixtapeOpinions.forEach(li => ul.appendChild(li))
              div.appendChild(ul)
+             div.appendChild(form)
              mixtapesContainer().appendChild(div)
 
 

@@ -1,10 +1,10 @@
 class Opinion {
 
     constructor(id, content, likes, mixtape_id){
-    this.id
-    this.content = content
-    this.likes = likes
-    this.mixtape_id = mixtape_id
+        this.id = id
+        this.content = content
+        this.likes = likes
+        this.mixtape_id = mixtape_id
     }
 
     static likeOpinion(e){
@@ -28,24 +28,23 @@ class Opinion {
         .then(mixtapesInfo => Mixtape.renderMixtapes(mixtapesInfo))
 
     }
-    
-
 
 
 //whats controlling the opinions side of things.
     static renderOpinions(opinions){
-
         let mixtapeOpinions = opinions.map(opinion => {
             let li = document.createElement('li')
             let div = document.createElement('div')
-            div.style.padding = "45px"
-            div.className = "card"
             let opinionContent = document.createElement('p')
             let opinionLikes = document.createElement('p')
             let likeButton = document.createElement('button')
+       
+            div.style.padding = "45px"
+            div.style.backgroundColor = "#CCE5FF"
+            div.className = "card"
             opinionContent.innerText = opinion.content
             opinionLikes.innerText = opinion.likes
-            likeButton.innerText = "like"
+            likeButton.innerText = "♥"
             likeButton.addEventListener("click", Opinion.likeOpinion.bind(opinion))
             div.appendChild(opinionContent)
             div.appendChild(opinionLikes)
@@ -53,8 +52,9 @@ class Opinion {
             li.appendChild(div)
             return li
         })
+        return mixtapeOpinions
 
-
+        //let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)
 
     }
 
