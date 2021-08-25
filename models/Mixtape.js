@@ -26,7 +26,65 @@ class Mixtape {
 
     }
 
-//creationg a new mixtape handler
+    static renderMixtape(mixtape){
+
+        let new_mixtape = new Mixtape(mixtape.id, mixtape.title, mixtape.description, mixtape.artist, mixtape.likes, mixtape.opinions)
+             Mixtape.all.push(new_mixtape)
+
+        let div = document.createElement("div")
+             let h3 = document.createElement("h3")
+             let p = document.createElement('p')
+             let p2 = document.createElement('p')
+             let likeButton = document.createElement('button')
+             let ul = document.createElement('ul')
+             let tapeLikes = document.createElement('p')
+             let deleteButton = document.createElement('button')
+             let form = document.createElement("form")
+             let input = document.createElement("input")
+             let submitOpinion = document.createElement("button")
+
+             let mixtapeOpinions = Opinion.renderOpinions(mixtape.opinions)           
+            //filling in that imaginary box with that inforamtion 
+             div.id = mixtape.id
+             div.style.padding = "40px"
+             div.style.backgroundColor = "#FADCF3"
+             div.className = 'card'
+             h3.innerText = mixtape.title
+             h3.id = `title for ${mixtape.id}`
+             p.innerText = mixtape.artist
+             p.id = `artist for ${mixtape.id}`
+             p2.innerText = mixtape.description
+             p2.id = `description for ${mixtape.id}`
+             tapeLikes.innerText = mixtape.likes
+             tapeLikes.id = `likes for ${mixtape.id}`
+             likeButton.innerText = "♥"
+             likeButton.addEventListener('click', Mixtape.likeMixtape.bind(mixtape))
+             deleteButton.innerText = "x"
+             deleteButton.addEventListener("click", Mixtape.deleteMixtape.bind(mixtape))
+
+             input.type = "text"
+             input.placeholder = "type your opinion here..."
+             submitOpinion.type = "submit"
+             submitOpinion.innerText = "Submit"
+             form.addEventListener("submit", Mixtape.createOpinion.bind(mixtape))
+             form.appendChild(input)
+             form.appendChild(submitOpinion)
+
+             //appending to child bringing that imagainary box to life on the browser to see
+             div.appendChild(h3)
+             div.appendChild(p)
+             div.appendChild(tapeLikes)
+             div.appendChild(p2)
+             div.appendChild(likeButton)
+             div.appendChild(deleteButton)
+             mixtapeOpinions.forEach(li => ul.appendChild(li))
+             div.appendChild(ul)
+             div.appendChild(form)
+             mixtapesContainer().appendChild(div)
+
+    }
+
+    //creationg a new mixtape handler
     static createMixtape(e){
         e.preventDefault();
         let title = e.target.children[0].value
@@ -54,10 +112,11 @@ class Mixtape {
         fetch("http://localhost:3000/mixtapes", configObj)
         .then(resp => resp.json())
         .then(json => {
+            //trick to clear fields of createMixtape form
             e.target.children[0].value = ""
             e.target.children[1].value = ""
             e.target.children[2].value = ""
-            Mixtape.renderMixtapes(json)
+            Mixtape.renderMixtape(json)
         })
 
     }
@@ -83,13 +142,13 @@ class Mixtape {
         .then(mixtapesInfo => Mixtape.renderMixtapes(mixtapesInfo))
 
     }
-
+    //dealing with all mixtapes 
     static renderMixtapes(mixtapesInfo){
         clearContainer(mixtapesContainer())
-        //Mixtape.all = []
+        Mixtape.all = []
          mixtapesInfo.forEach(mixtape => {
-             //new_mixtape = new Mixtape(mixtape.id, mixtape.title, mixtape.description, mixtape.artist, mixtape.likes, mixtape.opinions)
-             //Mixtape.all.push(new_mixtape)
+             let new_mixtape = new Mixtape(mixtape.id, mixtape.title, mixtape.description, mixtape.artist, mixtape.likes, mixtape.opinions)
+             Mixtape.all.push(new_mixtape)
             //  let mixtape = new Mixtape(mixtapeInfo.id, mixtapeInfo.title, mixtapeInfo.description, mixtapeInfo.artist, mixtapeInfo.likes, mixtapeInfo.opinions,)
             //  mixtape.save
              let div = document.createElement("div")
@@ -178,6 +237,12 @@ class Mixtape {
         fetch(`http://localhost:3000/mixtapes/${this.id}`, configObj)
         .then(resp => resp.json())
         .then(mixtapesInfo => Mixtape.renderMixtapes(mixtapesInfo))
+
+        static updateMixtape = (mixtape) => {
+            let title = document.getElementById('')
+        }
+
+        
 
     }
 
